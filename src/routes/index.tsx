@@ -8,6 +8,7 @@ import BookingForm from "@/components/site/BookingForm";
 import AmenitiesGrid from "@/components/site/AmenitiesGrid";
 import Restaurants from "@/components/site/Restaurants";
 import Highlights from "@/components/site/Highlights";
+import Tour360 from "@/components/Tour360";
 import Gallery from "@/components/site/Gallery";
 import Events from "@/components/site/Events";
 import Testimonials from "@/components/site/Testimonials";
@@ -43,6 +44,7 @@ function Index() {
         <AmenitiesGrid />
         <Restaurants />
         <Highlights />
+        <Tour360 />
         <Gallery />
         <Events />
         <BookingForm />

@@ -8,6 +8,7 @@ const links = [
   { to: "/restaurants", label: "Restaurants" },
   { to: "/experiences", label: "Expériences" },
   { to: "/evenements", label: "Événements" },
+  { to: "/#visite-360", label: "Visite 360°" },
   { to: "/galerie", label: "Galerie" },
   { to: "/contact", label: "Contact" },
 ];

@@ -9,9 +9,10 @@ const links = [
   { to: "/restaurants", label: "Restaurants" },
   { to: "/experiences", label: "Expériences" },
   { to: "/evenements", label: "Événements" },
+  { to: "/#visite-360", hash: "visite-360", label: "Visite 360°" },
   { to: "/galerie", label: "Galerie" },
   { to: "/contact", label: "Contact" },
-] as const;
+];
 
 export default function Navbar({ transparentOverHero = true }: { transparentOverHero?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
@@ -50,6 +51,26 @@ export default function Navbar({ transparentOverHero = true }: { transparentOver
         <nav className="hidden lg:flex items-center gap-7">
           {links.map((l) => {
             const active = pathname === l.to;
+            if ("hash" in l && l.hash) {
+              return (
+                <a
+                  key={l.label}
+                  href={`/#${l.hash}`}
+                  onClick={(e) => {
+                    if (pathname === "/") {
+                      e.preventDefault();
+                      document.getElementById(l.hash)?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  className={`text-sm font-medium relative ${textColor}`}
+                >
+                  {l.label}
+                  <span
+                    className="absolute -bottom-1.5 left-0 h-px bg-coral transition-all duration-300 w-0 group-hover:w-full"
+                  />
+                </a>
+              );
+            }
             return (
               <Link
                 key={l.to}
@@ -94,16 +115,36 @@ export default function Navbar({ transparentOverHero = true }: { transparentOver
             className="lg:hidden bg-ivory/95 backdrop-blur-xl border-t border-border overflow-hidden"
           >
             <nav className="container mx-auto px-6 py-6 flex flex-col gap-3">
-              {links.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  className="text-navy font-medium py-2 border-b border-border/40"
-                >
-                  {l.label}
-                </Link>
-              ))}
+              {links.map((l) => {
+                if ("hash" in l && l.hash) {
+                  return (
+                    <a
+                      key={l.label}
+                      href={`/#${l.hash}`}
+                      onClick={(e) => {
+                        setOpen(false);
+                        if (pathname === "/") {
+                          e.preventDefault();
+                          document.getElementById(l.hash)?.scrollIntoView({ behavior: "smooth" });
+                        }
+                      }}
+                      className="text-navy font-medium py-2 border-b border-border/40"
+                    >
+                      {l.label}
+                    </a>
+                  );
+                }
+                return (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    onClick={() => setOpen(false)}
+                    className="text-navy font-medium py-2 border-b border-border/40"
+                  >
+                    {l.label}
+                  </Link>
+                );
+              })}
               <Link
                 to="/contact"
                 onClick={() => setOpen(false)}
